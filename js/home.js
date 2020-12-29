@@ -4,6 +4,8 @@ var MY_WEATHER_API_KEY = '';
 $(document).ready(function () {  
 
     requestButtonClick();
+    $('#currentConditionsDiv').hide();
+    $('#forecastDiv').hide();
 
 });
 
@@ -36,7 +38,7 @@ function currentConditions() {
         url: 'https://api.openweathermap.org/data/2.5/weather?zip=' + zip + '&units=' + unit + '&appid=' + MY_WEATHER_API_KEY, 
         
         success: function(data) {
-            var img = data.weather[0].icon;
+            var image = data.weather[0].icon;
             var weather = data.weather[0].main;
             var description = data.weather[0].description;
 
@@ -46,7 +48,7 @@ function currentConditions() {
             }
                                    
             $('#cityName').append(data.name); 
-            $('#leftDisplay').append('<img src=http://openweathermap.org/img/w/' + img + '.png width="80px">');
+            $('#leftDisplay').append('<img src=http://openweathermap.org/img/w/' + image + '.png width="80px">');
             $('#leftDisplay').append(weather + ': ' + description);
 
             $('#rightDisplay').append('<p>Temperature: ' + data.main.temp + tempSymbol + '</p>');
@@ -136,6 +138,8 @@ function fiveDayForecast(){
         }
     });
     });
+
+    $('#forecastDiv').show();
 }
 
 
