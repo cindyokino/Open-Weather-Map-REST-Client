@@ -65,7 +65,7 @@ function fiveDayForecast(){
     var zipCode = $('#zipCode').val();
     $.ajax({
         type:'GET',
-        url:'https://api.openweathermap.org/data/2.5/forecast?zip='+$('#zipCode').val()+',us&appid=2ee8365521f9e8f4095f07504e3fdec8',
+        url:'https://api.openweathermap.org/data/2.5/forecast?zip='+$('#zipCode').val()+',us&appid=put you key here',
         
         success: function(results){
             var list = results.list;
