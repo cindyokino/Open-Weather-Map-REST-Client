@@ -1,4 +1,4 @@
-var MY_WEATHER_API_KEY = 'a2b981f27643b4c19892f48e562a9d22';
+var MY_WEATHER_API_KEY = '';
 
 
 $(document).ready(function () {  
@@ -80,7 +80,7 @@ function fiveDayForecast(){
     var zipCode = $('#zipCode').val();
     $.ajax({
         type:'GET',
-        url:'https://api.openweathermap.org/data/2.5/forecast?zip='+$('#zipCode').val()+',us&appid=put you key here',
+        url:'https://api.openweathermap.org/data/2.5/forecast?zip='+$('#zipCode').val()+',us&appid=' + MY_WEATHER_API_KEY,
         
         success: function(results){
             var list = results.list;
