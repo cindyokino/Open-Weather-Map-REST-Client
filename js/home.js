@@ -80,63 +80,63 @@ function clearCurrentConditions() {
 function fiveDayForecast(){
     $('#requestButton').click(function (event){
     var zipCode = $('#zipCode').val();
-    $.ajax({
-        type:'GET',
-        url:'https://api.openweathermap.org/data/2.5/forecast?zip='+$('#zipCode').val()+',us&appid=' + MY_WEATHER_API_KEY,
-        
-        success: function(results){
-            var list = results.list;
-            var min_temps = [];
-            var max_temps = [];
-            var icons = [];
-            var weathers = [];
-            var date = list[0].dt_txt.split(" ")[0];
-            var days = [date];
-            var tmp_min = 1000;
-            var tmp_max = -1000;
+        $.ajax({
+            type:'GET',
+            url:'https://api.openweathermap.org/data/2.5/forecast?zip='+$('#zipCode').val()+',us&appid=' + MY_WEATHER_API_KEY,
             
-            $.each(list, function(index, forecast){
+            success: function(results){
+                var list = results.list;
+                var min_temps = [];
+                var max_temps = [];
+                var icons = [];
+                var weathers = [];
+                var date = list[0].dt_txt.split(" ")[0];
+                var days = [date];
+                var tmp_min = 1000;
+                var tmp_max = -1000;
                 
-                if (index%7===0){
-                    icons.push("http://openweathermap.org/img/w/"+forecast.weather[0].icon+".png");
-                    weathers.push(forecast.weather[0].main);
-                }
-                if (forecast.main.temp_min<tmp_min){
-                    tmp_min = forecast.main.temp_min;
-                }
-                if (forecast.main.temp_max>tmp_max){
-                    tmp_max = forecast.main.temp_max;
-                }
-                if (forecast.dt_txt.split(" ")[0] !== date){
-                    date = forecast.dt_txt.split(" ")[0];
-                    days.push(displayDate(date));
-                    min_temps.push(tmp_min);
-                    max_temps.push(tmp_max);
-                    tmp_min = 1000;
-                    tmp_max = -1000;                    
-                }
-            });
-            min_temps.push(tmp_min);
-            max_temps.push(tmp_max);
-            
-            var i;
-            for (i = 0; i < 5; i++){                
-                var contentcol = $('#day'+(i+1));
-                contentcol.empty();
-                var img = document.createElement("img");
-                img.src = icons[i];
-                var col = '';
-                col += '<tr>';
-                col += '<td style="text-align:center;">' + days[i] + '</td>';
-                col += '</tr>';                
+                $.each(list, function(index, forecast){
+                    
+                    if (index%7===0){
+                        icons.push("http://openweathermap.org/img/w/"+forecast.weather[0].icon+".png");
+                        weathers.push(forecast.weather[0].main);
+                    }
+                    if (forecast.main.temp_min<tmp_min){
+                        tmp_min = forecast.main.temp_min;
+                    }
+                    if (forecast.main.temp_max>tmp_max){
+                        tmp_max = forecast.main.temp_max;
+                    }
+                    if (forecast.dt_txt.split(" ")[0] !== date){
+                        date = forecast.dt_txt.split(" ")[0];
+                        days.push(displayDate(date));
+                        min_temps.push(tmp_min);
+                        max_temps.push(tmp_max);
+                        tmp_min = 1000;
+                        tmp_max = -1000;                    
+                    }
+                });
+                min_temps.push(tmp_min);
+                max_temps.push(tmp_max);
+                
+                var i;
+                for (i = 0; i < 5; i++){                
+                    var contentcol = $('#day'+(i+1));
+                    contentcol.empty();
+                    var img = document.createElement("img");
+                    img.src = icons[i];
+                    var col = '';
+                    col += '<tr>';
+                    col += '<td style="text-align:center;">' + days[i] + '</td>';
+                    col += '</tr>';                
 
-                contentcol.append(col);
-                contentcol.append(img);
-                contentcol.append('</td>'+ weathers[i] + '</td>');
-                contentcol.append('<td>H ' + max_temps[i] + ' L ' + min_temps[i] + '</td>');
+                    contentcol.append(col);
+                    contentcol.append(img);
+                    contentcol.append('</td>'+ weathers[i] + '</td>');
+                    contentcol.append('<td>H ' + max_temps[i] + ' L ' + min_temps[i] + '</td>');
+                }
             }
-        }
-    });
+        });
     });
 
     $('#forecastDiv').show();
