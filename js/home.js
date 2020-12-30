@@ -6,6 +6,7 @@ $(document).ready(function () {
     requestButtonClick();
     $('#currentConditionsDiv').hide();
     $('#forecastDiv').hide();
+    $('.grayLine').hide();
 
 });
 
@@ -22,6 +23,7 @@ function requestButtonClick() {
         clearCurrentConditions();
         currentConditions();
         fiveDayForecast();
+        $('.grayLine').show();
     })
 }
 
