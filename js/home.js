@@ -122,7 +122,7 @@ function fiveDayForecast(){
                 var tmp_max = -1000;
                 
                 $.each(list, function(index, forecast){
-                    if (index%7===0){
+                    if (index%8===0){
                         icons.push("http://openweathermap.org/img/w/"+forecast.weather[0].icon+".png");
                         weathers.push(forecast.weather[0].main);
                     }
