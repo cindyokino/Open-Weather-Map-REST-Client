@@ -45,7 +45,7 @@ function currentConditions() {
             var description = data.weather[0].description;
 
             if (unit == 'metric') {
-                tempSymbol = " °C";
+                tempSymbol = " C";
                 speedSymbol = " km/h";
             }
                                    
@@ -80,9 +80,18 @@ function clearCurrentConditions() {
 
 // Function for Five Day Forecast
 function fiveDayForecast(){
+    var zipCode = $('#zipCode').val();
+    var unit = $('#units').val();
+    var tempSymbol;
+    if (unit=='metric'){
+        tempSymbol = ' C';
+    }
+    else{
+        tempSymbol = ' F';
+    }
         $.ajax({
             type:'GET',
-            url:'https://api.openweathermap.org/data/2.5/forecast?zip='+$('#zipCode').val()+',us&appid=' + MY_WEATHER_API_KEY,
+            url:'https://api.openweathermap.org/data/2.5/forecast?zip='+$('#zipCode').val()+',us&units='+unit+'&appid=' + MY_WEATHER_API_KEY,
             
             success: function(results){
                 var list = results.list;
@@ -91,12 +100,11 @@ function fiveDayForecast(){
                 var icons = [];
                 var weathers = [];
                 var date = list[0].dt_txt.split(" ")[0];
-                var days = [date];
+                var days = [displayDate(date)];
                 var tmp_min = 1000;
                 var tmp_max = -1000;
                 
                 $.each(list, function(index, forecast){
-                    
                     if (index%7===0){
                         icons.push("http://openweathermap.org/img/w/"+forecast.weather[0].icon+".png");
                         weathers.push(forecast.weather[0].main);
@@ -133,17 +141,62 @@ function fiveDayForecast(){
                     contentcol.append(col);
                     contentcol.append(img);
                     contentcol.append('</td>'+ weathers[i] + '</td>');
-                    contentcol.append('<td>H ' + max_temps[i] + ' L ' + min_temps[i] + '</td>');
+                    contentcol.append('<td>H ' + max_temps[i] + tempSymbol + ' L ' + min_temps[i] + tempSymbol + '</td>');
                 }
             }
-    });
+        });
 
     $('#forecastDiv').show();
 }
 
-// function to display the date in a nice way
+
 function displayDate(date){
-    return date;
+    var month = parseInt(date.split("-")[1]);
+    var day = parseInt(date.split("-")[2]);
+    var result = "";
+        result += day;
+    switch(month){
+        case 1:
+            result += " January";
+            break;
+        case 2:
+            result += " February";
+            break;
+        case 3:
+            result += " March";
+            break;
+        case 4:
+            result += "April";
+            break;
+        case 5:
+            result += " May";
+            break;
+        case 6:
+            result += " June";
+            break;
+        case 7:
+            result += " July";
+            break;
+        case 8: 
+            result += " August";
+            break;
+        case 9:
+            result += " September";
+            break;
+        case 10:
+            result += " October";
+            break;
+        case 11:
+            result += " November";
+            break;
+        case 12: 
+            result += " December";
+            break;
+        default:
+            result += " January";
+            return result;
+    }
+    return result;
 }
 
 // second layer of validation to double-check the data and display the error messages with JavaScript
