@@ -4,8 +4,10 @@ var MY_WEATHER_API_KEY = '';
 $(document).ready(function () {  
 
     requestButtonClick();
+    
     $('#currentConditionsDiv').hide();
     $('#forecastDiv').hide();
+    $('#forecastDivTitle').hide();
     $('.grayLine').hide();
 
 });
@@ -14,6 +16,7 @@ $(document).ready(function () {
 // Function for button click: validate and call the 2 forecast functions 
 function requestButtonClick() {
     $('#requestButton').click(function (event) {
+ 
         var haveValidationErrors = checkAndDisplayValidationErrors($('#zipCode').find('input')); 
        
         if(haveValidationErrors) {
@@ -62,7 +65,7 @@ function currentConditions() {
             $('#errorMessages')
             .append($('<li>')
             .attr({class: 'list-group-item list-group-item-danger'})
-            .text('Error calling web service. Please try again later.')); 
+            .text('Zip code: please enter a 5-digit zip code')); 
         }
     })
     
@@ -146,6 +149,7 @@ function fiveDayForecast(){
             }
         });
 
+    $('#forecastDivTitle').show();
     $('#forecastDiv').show();
 }
 
