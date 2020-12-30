@@ -80,8 +80,6 @@ function clearCurrentConditions() {
 
 // Function for Five Day Forecast
 function fiveDayForecast(){
-    $('#requestButton').click(function (event){
-    var zipCode = $('#zipCode').val();
         $.ajax({
             type:'GET',
             url:'https://api.openweathermap.org/data/2.5/forecast?zip='+$('#zipCode').val()+',us&appid=' + MY_WEATHER_API_KEY,
@@ -138,12 +136,15 @@ function fiveDayForecast(){
                     contentcol.append('<td>H ' + max_temps[i] + ' L ' + min_temps[i] + '</td>');
                 }
             }
-        });
     });
 
     $('#forecastDiv').show();
 }
 
+// function to display the date in a nice way
+function displayDate(date){
+    return date;
+}
 
 // second layer of validation to double-check the data and display the error messages with JavaScript
 function checkAndDisplayValidationErrors(input) {
