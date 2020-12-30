@@ -17,7 +17,7 @@ $(document).ready(function () {
 function requestButtonClick() {
     $('#requestButton').click(function (event) {
  
-        var haveValidationErrors = checkAndDisplayValidationErrors($('#zipCode').find('input')); 
+        var haveValidationErrors = checkAndDisplayValidationErrors($('#editForm').find('input')); 
        
         if(haveValidationErrors) {
             return false;
@@ -65,20 +65,12 @@ function currentConditions() {
         },
 
         error: function () {
-            if (zip.length===5){
             $('#errorMessages')
             .append($('<li>')
             .attr({class: 'list-group-item list-group-item-danger'})
-            .text('This Zip code does not exist')); 
-            }
-            else{
-            $('#errorMessages')
-            .append($('<li>')
-            .attr({class: 'list-group-item list-group-item-danger'})
-            .text('Zip code: please enter a 5-digit zip code')); 
-            }  
-                $('#currentConditionsDiv').hide();
-                $('.grayLine').hide();
+            .text('This Zip code does not exist'));
+             $('#currentConditionsDiv').hide();
+             $('.grayLine').hide();
             }
 
     })
@@ -232,7 +224,7 @@ function checkAndDisplayValidationErrors(input) {
     input.each(function() {
         if (!this.validity.valid) {
             var errorField = $('label[for=' + this.id + ']').text();
-            errorMessages.push(errorField + ' ' + this.validationMessage);
+            errorMessages.push(errorField + ' please enter a 5-digit zip code');
         }  
     });
     
