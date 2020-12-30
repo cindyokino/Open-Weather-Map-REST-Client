@@ -15,8 +15,14 @@
         <div class="container">
             <h1 class="text-center">Weather Page</h1>            
 
-            <!-- Get Weather Form -->
+            
             <hr>
+            <div id="errorContainer">
+            <ul class="list-group" id="errorMessages"></ul>
+            <br>
+            </div>
+            <!-- Get Weather Form -->
+            
             <div class="row">
                 <div class="col"></div>
                     <div class="col-md-8">
@@ -78,9 +84,9 @@
 
             <!-- Container for 5 Days Forecast -->
             <hr class="grayLine">
-            <div id="forecastDiv">
-                <h2>Five Day Forecast</h2>
-                <div class="row">
+                <div class="row" id="forecastDivTitle">
+                    <h2>Five Day Forecast</h2>
+                    <div class="row" id="forecastDiv">
                     <div class="col-sm-2" id="day1">
                     </div>
                     <div class="col-sm-2" id="day2">
@@ -91,8 +97,8 @@
                     </div>
                     <div class="col-sm-2" id="day5">
                     </div>
+                    </div>
                 </div>
-            </div>
 
         </div>
 
