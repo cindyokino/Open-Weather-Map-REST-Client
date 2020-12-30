@@ -62,11 +62,20 @@ function currentConditions() {
         },
 
         error: function () {
+            if (zip.length===5){
+            $('#errorMessages')
+            .append($('<li>')
+            .attr({class: 'list-group-item list-group-item-danger'})
+            .text('This Zip code does not exist')); 
+            }
+            else{
             $('#errorMessages')
             .append($('<li>')
             .attr({class: 'list-group-item list-group-item-danger'})
             .text('Zip code: please enter a 5-digit zip code')); 
-        }
+            }  
+            }
+            
     })
     
     $('#currentConditionsDiv').show();
@@ -135,17 +144,15 @@ function fiveDayForecast(){
                     var contentcol = $('#day'+(i+1));
                     contentcol.empty();
                     var img = document.createElement("img");
-                    img.src = icons[i];
-                    var col = '';
-                    col += '<tr>';
-                    col += '<td style="text-align:center;">' + days[i] + '</td>';
-                    col += '</tr>';                
-
-                    contentcol.append(col);
+                    img.src = icons[i];              
+                    contentcol.append('<text>'+days[i]+'<br></text>');
                     contentcol.append(img);
-                    contentcol.append('</td>'+ weathers[i] + '</td>');
-                    contentcol.append('<td>H ' + max_temps[i] + tempSymbol + ' L ' + min_temps[i] + tempSymbol + '</td>');
+                    contentcol.append(weathers[i] + '<br></text>');
+                    contentcol.append('<text>H ' + max_temps[i] + tempSymbol + ' L ' + min_temps[i] + tempSymbol + '</text>');
                 }
+            },
+            error:function(){
+                $('#forecastDiv').hide();
             }
         });
 
