@@ -25,6 +25,7 @@ function requestButtonClick() {
     
         clearCurrentConditions();
         currentConditions();
+        clearFiveDayForecast();
         fiveDayForecast();
         $('.grayLine').show();
     })
@@ -59,6 +60,8 @@ function currentConditions() {
             $('#rightDisplay').append('<p>Temperature: ' + data.main.temp + tempSymbol + '</p>');
             $('#rightDisplay').append('<p>Humidity: ' + data.main.humidity + ' %</p>');
             $('#rightDisplay').append('<p>Wind: ' + data.wind.speed + speedSymbol + '</p>');
+            
+            $('#currentConditionsDiv').show();
         },
 
         error: function () {
@@ -74,11 +77,13 @@ function currentConditions() {
             .attr({class: 'list-group-item list-group-item-danger'})
             .text('Zip code: please enter a 5-digit zip code')); 
             }  
+                $('#currentConditionsDiv').hide();
+                $('.grayLine').hide();
             }
-            
+
     })
     
-    $('#currentConditionsDiv').show();
+    ;
 }
 
 
@@ -87,6 +92,14 @@ function clearCurrentConditions() {
     $('#cityName').empty(); 
     $('#leftDisplay').empty();
     $('#rightDisplay').empty();
+}
+
+function clearFiveDayForecast(){
+    var i;
+    for (i = 0; i < 5; i++){                
+    var contentcol = $('#day'+(i+1));
+    contentcol.empty();
+    }
 }
 
 
@@ -142,22 +155,22 @@ function fiveDayForecast(){
                 var i;
                 for (i = 0; i < 5; i++){                
                     var contentcol = $('#day'+(i+1));
-                    contentcol.empty();
                     var img = document.createElement("img");
                     img.src = icons[i];              
                     contentcol.append('<text>'+days[i]+'<br></text>');
                     contentcol.append(img);
                     contentcol.append(weathers[i] + '<br></text>');
                     contentcol.append('<text>H ' + max_temps[i] + tempSymbol + ' L ' + min_temps[i] + tempSymbol + '</text>');
+                    
+                    $('#forecastDivTitle').show();
+                    $('#forecastDiv').show();
                 }
             },
             error:function(){
-                $('#forecastDiv').hide();
+                $('#forecastDivTitle').hide();
             }
         });
 
-    $('#forecastDivTitle').show();
-    $('#forecastDiv').show();
 }
 
 
